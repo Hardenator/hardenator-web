@@ -1,18 +1,12 @@
+import Link from "next/link";
+import { Nav } from "./nav";
+import { SiteFooter } from "./site-footer";
 import { WaitlistForm } from "./waitlist-form";
 
 export default function Home() {
   return (
     <>
-      <nav className="nav-bar">
-        <div className="container-hd nav-inner">
-          <a href="/" className="logo">
-            hardenator
-          </a>
-          <a href="#waitlist" className="btn btn-primary">
-            Get early access
-          </a>
-        </div>
-      </nav>
+      <Nav />
 
       <main>
         {/* HERO */}
@@ -29,11 +23,11 @@ export default function Home() {
               not six weeks after you ship to production.
             </p>
             <div className="hero-cta">
-              <a href="#waitlist" className="btn btn-primary">
+              <Link href="#waitlist" className="btn btn-primary">
                 Join the waitlist →
-              </a>
+              </Link>
               <a
-                href="https://github.com/hardenator"
+                href="https://github.com/Hardenator"
                 className="btn btn-ghost"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -164,7 +158,7 @@ export default function Home() {
                   knowledge is for everyone.
                 </p>
                 <a
-                  href="https://github.com/hardenator/hardenator-rules"
+                  href="https://github.com/Hardenator/hardenator-rules"
                   className="btn"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -297,9 +291,9 @@ export default function Home() {
             </h2>
             <p>
               —{" "}
-              <a href="/manifesto">
+              <Link href="/manifesto">
                 read the full manifesto at hardenator.com/manifesto
-              </a>
+              </Link>
             </p>
           </div>
         </section>
@@ -317,69 +311,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="footer">
-        <div className="container-hd">
-          <div className="footer-grid">
-            <div>
-              <div className="logo logo-sm">hardenator</div>
-              <p className="footer-about">
-                The security OS for AI-generated code. Built by a solo founder
-                who audited his own vibe-coded SaaS first.
-              </p>
-            </div>
-            <div className="footer-col">
-              <div className="footer-col-title">Product</div>
-              <ul>
-                <li>
-                  <a href="#how">How it works</a>
-                </li>
-                <li>
-                  <a href="#rules">Rule library</a>
-                </li>
-                <li>
-                  <a href="#pricing">Pricing</a>
-                </li>
-                <li>
-                  <a href="/docs">Docs</a>
-                </li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <div className="footer-col-title">Community</div>
-              <ul>
-                <li>
-                  <a href="https://github.com/hardenator">GitHub</a>
-                </li>
-                <li>
-                  <a
-                    href="https://discord.gg/RVU7BjJANC"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Discord
-                  </a>
-                </li>
-                <li>
-                  <a href="https://x.com/hardenator">Twitter / X</a>
-                </li>
-                <li>
-                  <a href="/blog">Breach Watch</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <div>© 2026 Hardenator. Built in Kuala Lumpur.</div>
-            <div className="footer-bottom-links">
-              <a href="/manifesto">Manifesto</a>
-              <a href="/security">Security</a>
-              <a href="/press">Press kit</a>
-              <a href="/terms">Terms</a>
-              <a href="/privacy">Privacy</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

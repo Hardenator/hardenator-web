@@ -51,23 +51,31 @@ async function sendResendEmail(to: string, subject: string, html: string) {
   return { skipped: false as const };
 }
 
-function welcomeHtml(email: string, rank: number): string {
-  return `<!DOCTYPE html><html><body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; color:#0c0c0c; background:#f4f1ea; max-width:560px; margin:0 auto; padding:32px;">
-<p style="font-family: 'JetBrains Mono', monospace; font-size:12px; color:#8f8b7e; letter-spacing:0.15em; text-transform:uppercase;">hardenator</p>
-<h1 style="font-weight:900; font-size:28px; letter-spacing:-0.02em; margin:16px 0;">You're on the waitlist.</h1>
-<p>Position #${rank}. Thanks for joining.</p>
-<p>Quick context on what you just signed up for:</p>
-<p>Hardenator catches the security holes your AI coding agent misses — at generation time, not six weeks after you ship. We do it because I audited my own vibe-coded SaaS three weeks ago and found fourteen findings I hadn't thought to look for. Most of them RLS misses. If you've shipped a Supabase app via Lovable / Bolt / Cursor / Claude Code, you probably have similar holes.</p>
-<p>What happens next:</p>
-<ul>
-<li>Weekly Breach Watch email — one real vibe-coded breach, what it was, how to avoid it</li>
-<li>Early access to the OSS rule library (MIT, ships this week)</li>
-<li>First 100 waitlist signups get lifetime 30% off when paid tier launches</li>
+function welcomeHtml(_email: string, rank: number): string {
+  return `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0c0c0c;background:#f4f1ea;max-width:580px;margin:0 auto;padding:36px 28px;line-height:1.55;">
+<p style="font-family:ui-monospace,'JetBrains Mono',monospace;font-size:11px;color:#8f8b7e;letter-spacing:0.18em;text-transform:uppercase;margin:0 0 12px 0;">hardenator</p>
+<h1 style="font-weight:900;font-size:30px;letter-spacing:-0.02em;margin:0 0 8px 0;line-height:1.1;">You're in.</h1>
+<p style="margin:0 0 24px 0;color:#1a1a1a;">Position #${rank}.</p>
+
+<p>Three weeks ago I audited my own vibe-coded SaaS. Found a dozen-plus security holes — a password-reset table readable by anyone with the anon key, a service-role key a build step was quietly shipping to the frontend, an admin route that only checked "is user logged in" instead of "is user an admin," a Stripe webhook with no signature verification. None broke a test. All of them mattered.</p>
+
+<p>The patterns don't care which stack you're on. Supabase, Firebase, raw Postgres. Next, Remix, FastAPI, Django. Lovable, Bolt, Cursor, v0, Replit, Claude Code, Codex, Devin — the gaps repeat. Hardenator's job is to catch them at generation time, before the PR, not six weeks after launch when a stranger DMs you a proof of concept.</p>
+
+<p style="font-weight:700;margin:28px 0 8px 0;">What actually lands in your inbox from here:</p>
+<ul style="padding-left:20px;margin:0 0 24px 0;">
+<li style="margin-bottom:10px;"><strong>Breach Watch</strong>, weekly — one real vibe-coded breach, what went wrong, which rule would have caught it. First drops next week.</li>
+<li style="margin-bottom:10px;"><strong>The OSS rule library</strong> — 100+ rules covering auth, secrets, access control, headers, payments, SQL, agent governance. MIT, on GitHub, ships this week. Works with Semgrep standalone — no Hardenator install required.</li>
+<li style="margin-bottom:10px;"><strong>Paid tier launch</strong> — 24-hour heads-up before public. First 100 waitlist signups lock in 30% off for life.</li>
 </ul>
-<p>If any of this looks off, reply to this email. I read everything.</p>
-<p>— Lingesh<br/><span style="color:#8f8b7e;">Founder, Hardenator</span></p>
-<hr style="border:none; border-top:1px solid #8f8b7e; margin:32px 0;"/>
-<p style="font-family: 'JetBrains Mono', monospace; font-size:11px; color:#8f8b7e;">You're receiving this because you joined the waitlist at hardenator.com. One-click unsubscribe: reply "unsubscribe".</p>
+
+<p>Come hang out while I build — the Discord's called The Dojo: <a href="https://discord.gg/RVU7BjJANC" style="color:#0c0c0c;font-weight:700;">discord.gg/RVU7BjJANC</a> (empty today; that's the fun part).</p>
+
+<p>If any of this is off, reply. Every reply lands in my inbox.</p>
+
+<p style="margin-top:28px;">— Lingesh</p>
+
+<hr style="border:none;border-top:1px solid #d7d3ca;margin:36px 0 16px 0;"/>
+<p style="font-family:ui-monospace,'JetBrains Mono',monospace;font-size:11px;color:#8f8b7e;margin:0;line-height:1.6;">You joined the waitlist at <a href="https://hardenator.com" style="color:#8f8b7e;">hardenator.com</a>. To leave the list, reply with <strong>unsubscribe</strong> — I read every one.</p>
 </body></html>`;
 }
 

@@ -351,7 +351,13 @@ export default function Home() {
                   <a href="https://github.com/hardenator">GitHub</a>
                 </li>
                 <li>
-                  <a href="https://discord.gg/hardenator">Discord</a>
+                  <a
+                    href="https://discord.gg/RVU7BjJANC"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Discord
+                  </a>
                 </li>
                 <li>
                   <a href="https://x.com/hardenator">Twitter / X</a>

@@ -11,6 +11,8 @@ type WaitlistBody = {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ADMIN_EMAIL = "lingeshbalasubramaniam@gmail.com";
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "hello@hardenator.com";
+const RESILLATOR_API_BASE =
+  process.env.RESILLATOR_API_BASE ?? "https://resillator.xyz/api/v1";
 
 function isNonEmptyString(v: unknown): v is string {
   return typeof v === "string" && v.length > 0;
@@ -24,6 +26,46 @@ function hashRank(email: string): number {
     h = (h * 31 + email.charCodeAt(i)) | 0;
   }
   return 100 + (Math.abs(h) % 900);
+}
+
+async function syncToResillator(
+  email: string,
+  rank: number,
+  ref: string | null,
+): Promise<{ skipped: boolean }> {
+  const apiKey = process.env.RESILLATOR_API_KEY;
+  if (!apiKey) return { skipped: true };
+
+  const displayName = email.split("@")[0] ?? email;
+  const res = await fetch(`${RESILLATOR_API_BASE}/entities`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      entityTypeKey: "subscriber",
+      name: displayName,
+      status: "trial",
+      customData: {
+        email,
+        plan: "Free",
+        mrr: 0,
+        acquisition_source: ref ? "Referral" : "Organic Search",
+        churn_risk: "Low",
+        health_score: 100,
+        rank,
+        ref: ref ?? "(none)",
+        signed_up_at: new Date().toISOString(),
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Resillator ${res.status}: ${text}`);
+  }
+  return { skipped: false };
 }
 
 async function sendResendEmail(to: string, subject: string, html: string) {
@@ -126,8 +168,8 @@ export async function POST(request: Request) {
     }),
   );
 
-  // Fire emails in parallel; do not block signup if they fail.
-  const emailResults = await Promise.allSettled([
+  // Fire all side effects in parallel; none block the signup response.
+  const sideEffects = await Promise.allSettled([
     sendResendEmail(
       rawEmail,
       "You're on the Hardenator waitlist",
@@ -138,16 +180,21 @@ export async function POST(request: Request) {
       `Waitlist signup: ${rawEmail}`,
       adminHtml(rawEmail, ref, rank),
     ),
+    syncToResillator(rawEmail, rank, ref),
   ]);
 
-  for (const r of emailResults) {
+  const labels = ["welcome_email", "admin_email", "resillator_sync"];
+  sideEffects.forEach((r, i) => {
     if (r.status === "rejected") {
       // eslint-disable-next-line no-console
       console.error(
-        JSON.stringify({ event: "resend_error", error: String(r.reason) }),
+        JSON.stringify({
+          event: `${labels[i]}_error`,
+          error: String(r.reason),
+        }),
       );
     }
-  }
+  });
 
   return NextResponse.json(
     {

@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# hardenator-web
 
-## Getting Started
+Marketing site + dashboard for [Hardenator](https://hardenator.com) — the security OS for AI-generated code.
 
-First, run the development server:
+## What's here
+
+- `app/page.tsx` — the landing page (hero, stats, how-it-works, rules, pricing, manifesto quote, waitlist CTA, footer)
+- `app/waitlist-form.tsx` — client component with form state + API call
+- `app/api/waitlist/route.ts` — Route Handler: accepts `{email, ref}`, assigns rank, fires welcome + admin emails via Resend
+- `app/layout.tsx` — root layout, loads Fraunces + Inter Tight + JetBrains Mono via `next/font`
+- `app/globals.css` — the full brand system (colors, type, sections, components). Brutalist editorial, hazard stripes, grain overlay.
+
+## Local dev
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+## Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+Set on Vercel (`vercel env add`) or in `.env.local` for dev:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Key | Purpose | Required |
+|---|---|---|
+| `RESEND_API_KEY` | Sends welcome + admin emails via Resend | No — if missing, `/api/waitlist` still works, just logs to console |
+| `RESEND_FROM_EMAIL` | Sender address (default `hello@hardenator.com`) | No |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Until the paid tier ships (Week 3), signups are tracked in Vercel Functions logs. Morning Lingesh should wire up Resend + Neon/KV before traffic spikes.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Linked to Vercel Pro (account `lingesh389`). Production branch: `main`. Deploys via `vercel --prod`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Brand system
+
+**Colors (CSS variables in `globals.css`):** `--ink #0C0C0C`, `--paper #F4F1EA`, `--hazard #F5C518`, `--danger #E63946`, `--safe #2A9D8F`, `--fog #1A1A1A`, `--whisper #8F8B7E`.
+
+**Fonts:** Fraunces (display), Inter Tight (body), JetBrains Mono (code).
+
+**Aesthetic:** brutalist editorial. Sharp edges, 2px borders, offset shadows, hazard-stripe motifs, subtle grain. No soft SaaS gradients. No neon terminal. No Inter-by-itself.
+
+## Related repos (not yet created)
+
+- `hardenator-rules` — OSS Semgrep rule library (MIT), Week 1
+- `hardenator-cli` — `@hardenator/cli` npm package, Week 1
+- `hardenator-claude-code` — Claude Code plugin, Week 2
+- `hardenator-github-app` — Probot auto-PR bot, Week 3

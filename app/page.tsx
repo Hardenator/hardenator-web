@@ -1,65 +1,379 @@
-import Image from "next/image";
+import { WaitlistForm } from "./waitlist-form";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+    <>
+      <nav className="nav-bar">
+        <div className="container-hd nav-inner">
+          <a href="/" className="logo">
+            hardenator
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+          <a href="#waitlist" className="btn btn-primary">
+            Get early access
           </a>
         </div>
+      </nav>
+
+      <main>
+        {/* HERO */}
+        <section className="hero">
+          <div className="hero-stripe-top" />
+          <div className="container-hd">
+            <span className="eyebrow">The security OS for AI-generated code</span>
+            <h1>
+              You write prompts. <em>We write patches.</em>
+            </h1>
+            <p className="hero-lead">
+              Your AI is a brilliant pattern-matcher and a terrible security
+              engineer. Hardenator catches what it misses — at generation time,
+              not six weeks after you ship to production.
+            </p>
+            <div className="hero-cta">
+              <a href="#waitlist" className="btn btn-primary">
+                Join the waitlist →
+              </a>
+              <a
+                href="https://github.com/hardenator"
+                className="btn btn-ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                See the OSS rules
+              </a>
+            </div>
+            <div className="hero-code">
+              <span className="prompt">$</span> npx hardenator scan
+            </div>
+          </div>
+        </section>
+
+        {/* STATS */}
+        <section className="stats">
+          <div className="container-hd">
+            <span className="eyebrow eyebrow-danger">
+              The state of vibe coding security, Q1 2026
+            </span>
+            <h2>The numbers nobody wants to print on the pitch deck.</h2>
+            <div className="stats-grid">
+              <div className="stat">
+                <div className="stat-num">91.5%</div>
+                <div className="stat-label">
+                  of vibe-coded apps have at least one AI-hallucination
+                  vulnerability
+                </div>
+                <div className="stat-source">Q1 2026 study, 200+ apps</div>
+              </div>
+              <div className="stat">
+                <div className="stat-num">2.74×</div>
+                <div className="stat-label">
+                  vulnerability rate of AI-written code vs human-written
+                </div>
+                <div className="stat-source">arXiv, 470 GitHub PRs</div>
+              </div>
+              <div className="stat">
+                <div className="stat-num">8M</div>
+                <div className="stat-label">
+                  Lovable users affected across three breaches in thirteen
+                  months
+                </div>
+                <div className="stat-source">
+                  Public disclosures, Jan–Apr 2026
+                </div>
+              </div>
+              <div className="stat">
+                <div className="stat-num">60%</div>
+                <div className="stat-label">
+                  of all new code expected to be AI-generated by end of 2026
+                </div>
+                <div className="stat-source">Gartner forecast, 2026</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* HOW IT WORKS */}
+        <section className="section how" id="how">
+          <div className="container-hd">
+            <span className="eyebrow">How it works</span>
+            <h2>Three layers of defense. One install.</h2>
+            <div className="layers">
+              <div className="layer">
+                <div className="layer-num">01 / PREVENTION</div>
+                <h3>Intercept at generation time</h3>
+                <p>
+                  Plugin hooks into Claude Code and Cursor. When the AI tries
+                  to write a service_role key to a frontend file, we block it
+                  before the file hits disk.
+                </p>
+                <ul>
+                  <li>Claude Code plugin</li>
+                  <li>Cursor .mdc rules</li>
+                  <li>VS Code extension (Bolt, Replit, Windsurf)</li>
+                  <li>Claude Managed Agents skill</li>
+                </ul>
+              </div>
+              <div className="layer">
+                <div className="layer-num">02 / DETECTION</div>
+                <h3>Scan what already shipped</h3>
+                <p>
+                  Semgrep-based CLI runs in your editor, pre-commit hook, and
+                  CI. 100+ rules tuned specifically for AI failure modes.
+                  False-positive rate under 8%.
+                </p>
+                <ul>
+                  <li>@hardenator/cli (npm)</li>
+                  <li>hardenator-rules (OSS, MIT)</li>
+                  <li>GitHub Action for CI</li>
+                  <li>Per-project baseline mode</li>
+                </ul>
+              </div>
+              <div className="layer">
+                <div className="layer-num">03 / REMEDIATION</div>
+                <h3>Auto-fix as a pull request</h3>
+                <p>
+                  Every fixable finding becomes a PR with a patch you can merge
+                  in one click. You review, not triage. Never auto-merged — you
+                  stay in control.
+                </p>
+                <ul>
+                  <li>GitHub App auto-PR</li>
+                  <li>Claude Sonnet 4.7 for complex fixes</li>
+                  <li>Plain-language breach explanations</li>
+                  <li>One-click rollback</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* RULES */}
+        <section className="section rules" id="rules">
+          <div className="container-hd">
+            <div className="rules-grid">
+              <div>
+                <span className="eyebrow">The rule library</span>
+                <h2>100+ rules. Open source. Forever free.</h2>
+                <p className="rules-lead">
+                  Every pattern Hardenator catches is published as a public
+                  Semgrep rule under MIT license. Security researchers
+                  contribute. Community audits. Competitors can fork it — we&apos;d
+                  prefer they did.
+                </p>
+                <p className="rules-lead">
+                  Your auto-fix + continuous protection is the paid layer. The
+                  knowledge is for everyone.
+                </p>
+                <a
+                  href="https://github.com/hardenator/hardenator-rules"
+                  className="btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Browse on GitHub →
+                </a>
+                <div className="rules-tags">
+                  <span className="tag">supabase</span>
+                  <span className="tag">lovable</span>
+                  <span className="tag">bolt</span>
+                  <span className="tag">cursor</span>
+                  <span className="tag">next.js</span>
+                  <span className="tag">stripe</span>
+                  <span className="tag">clerk</span>
+                  <span className="tag">auth</span>
+                </div>
+              </div>
+              <div className="rules-categories">
+                <div className="row">
+                  <span className="row-label">Supabase &amp; RLS</span>
+                  <span className="row-num">23</span>
+                </div>
+                <div className="row">
+                  <span className="row-label">Auth &amp; Session</span>
+                  <span className="row-num">18</span>
+                </div>
+                <div className="row">
+                  <span className="row-label">Secrets &amp; API keys</span>
+                  <span className="row-num">14</span>
+                </div>
+                <div className="row">
+                  <span className="row-label">Stripe &amp; payments</span>
+                  <span className="row-num">9</span>
+                </div>
+                <div className="row">
+                  <span className="row-label">CSRF / XSS / Headers</span>
+                  <span className="row-num">16</span>
+                </div>
+                <div className="row">
+                  <span className="row-label">BOLA / IDOR</span>
+                  <span className="row-num">11</span>
+                </div>
+                <div className="row">
+                  <span className="row-label">SQL injection</span>
+                  <span className="row-num">7</span>
+                </div>
+                <div className="row">
+                  <span className="row-label">Agent coding gates</span>
+                  <span className="row-num">8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PRICING */}
+        <section className="section pricing" id="pricing">
+          <div className="container-hd">
+            <span className="eyebrow">Pricing</span>
+            <h2>For the solo builder. And the autonomous agent army.</h2>
+            <p className="pricing-sub">
+              14-day free trial on all paid tiers. Annual billing saves 20%.
+              First 50 paying customers lock in founding pricing forever.
+            </p>
+            <div className="tiers">
+              <div className="tier">
+                <div className="tier-name">Solo</div>
+                <div className="tier-price">Free</div>
+                <div className="tier-target">Individual vibe-coders</div>
+                <ul>
+                  <li>1 repo</li>
+                  <li>100 scans/month</li>
+                  <li>Community rules</li>
+                  <li>Community support</li>
+                </ul>
+              </div>
+              <div className="tier tier-featured">
+                <div className="tier-name">Indie</div>
+                <div className="tier-price">
+                  $29<small>/mo</small>
+                </div>
+                <div className="tier-target">Solo SaaS founders</div>
+                <ul>
+                  <li>3 repos</li>
+                  <li>Unlimited fixes</li>
+                  <li>Auto-PR GitHub App</li>
+                  <li>Verified badge</li>
+                  <li>Monthly risk report</li>
+                </ul>
+              </div>
+              <div className="tier">
+                <div className="tier-name">Team</div>
+                <div className="tier-price">
+                  $99<small>/mo</small>
+                </div>
+                <div className="tier-target">2–10 person startups</div>
+                <ul>
+                  <li>10 repos</li>
+                  <li>SOC 2 evidence export</li>
+                  <li>Slack / Linear / Jira</li>
+                  <li>Priority support</li>
+                  <li>Custom rules</li>
+                </ul>
+              </div>
+              <div className="tier">
+                <div className="tier-name">Fort</div>
+                <div className="tier-price">
+                  $999<small>/mo</small>
+                </div>
+                <div className="tier-target">Autonomous agent teams</div>
+                <ul>
+                  <li>Unlimited repos &amp; agents</li>
+                  <li>Devin / Codex PR gate</li>
+                  <li>Per-agent scorecard</li>
+                  <li>Dedicated Slack with founder</li>
+                  <li>SLA</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* MANIFESTO */}
+        <section className="manifesto">
+          <div className="container-hd">
+            <span className="eyebrow">The Hardenator Manifesto</span>
+            <h2>
+              &ldquo;We build at the edge of two truths. The AI writes code
+              now. Consequences are still human.&rdquo;
+            </h2>
+            <p>
+              —{" "}
+              <a href="/manifesto">
+                read the full manifesto at hardenator.com/manifesto
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* WAITLIST CTA */}
+        <section className="cta" id="waitlist">
+          <div className="container-hd">
+            <h2>Get early access.</h2>
+            <p>
+              First 100 waitlist signups get lifetime 30% off. First 50 paying
+              customers lock in $19/mo forever. There is no second launch.
+            </p>
+            <WaitlistForm />
+          </div>
+        </section>
       </main>
-    </div>
+
+      <footer className="footer">
+        <div className="container-hd">
+          <div className="footer-grid">
+            <div>
+              <div className="logo logo-sm">hardenator</div>
+              <p className="footer-about">
+                The security OS for AI-generated code. Built by a solo founder
+                who audited his own vibe-coded SaaS first.
+              </p>
+            </div>
+            <div className="footer-col">
+              <div className="footer-col-title">Product</div>
+              <ul>
+                <li>
+                  <a href="#how">How it works</a>
+                </li>
+                <li>
+                  <a href="#rules">Rule library</a>
+                </li>
+                <li>
+                  <a href="#pricing">Pricing</a>
+                </li>
+                <li>
+                  <a href="/docs">Docs</a>
+                </li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <div className="footer-col-title">Community</div>
+              <ul>
+                <li>
+                  <a href="https://github.com/hardenator">GitHub</a>
+                </li>
+                <li>
+                  <a href="https://discord.gg/hardenator">Discord</a>
+                </li>
+                <li>
+                  <a href="https://x.com/hardenator">Twitter / X</a>
+                </li>
+                <li>
+                  <a href="/blog">Breach Watch</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <div>© 2026 Hardenator. Built in Kuala Lumpur.</div>
+            <div className="footer-bottom-links">
+              <a href="/manifesto">Manifesto</a>
+              <a href="/security">Security</a>
+              <a href="/press">Press kit</a>
+              <a href="/terms">Terms</a>
+              <a href="/privacy">Privacy</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
